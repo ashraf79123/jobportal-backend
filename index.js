@@ -28,7 +28,7 @@ app.use((err, req, res, next) => {
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "hhttps://getjob-yuma.onrender.com"
+  "https://getjob-yuma.onrender.com"
 ];
 
 app.use(cors({

@@ -11,11 +11,21 @@ dotenv.config({})
 
 const app = express();
 
+app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
 
 // middleware
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use(cookieParser());
+
+
+// Handle JSON parse errors
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).json({ error: 'Invalid JSON payload' });
+  }
+  next();
+});
+
 const corsOptions = {
     origin:'http://localhost:5173',
     credentials:true
